@@ -161,7 +161,7 @@ def transformer(U, theta, out_size, name='SpatialTransformer', **kwargs):
             grid = tf.tile(grid, tf.stack([num_batch]))
             #grid = tf.reshape(grid, tf.stack([num_batch, 3, -1]))
             grid = tf.reshape(grid, tf.stack([num_batch, 2, -1]))
-            
+
             # Transform A x (x_t, y_t, 1)^T -> (x_s, y_s)
             #T_g = tf.matmul(theta, grid)
             T_g = theta + grid
@@ -182,6 +182,25 @@ def transformer(U, theta, out_size, name='SpatialTransformer', **kwargs):
     with tf.variable_scope(name):
         output = _transform(theta, U, out_size)
         return output
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 def batch_transformer(U, thetas, out_size, name='BatchSpatialTransformer'):

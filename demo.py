@@ -6,8 +6,8 @@ import scipy.io as sio
 from tvnet import TVNet
 
 flags = tf.app.flags
-flags.DEFINE_integer("scale", 5, " TVNet scale [3]")
-flags.DEFINE_integer("warp", 5, " TVNet warp [1]")
+flags.DEFINE_integer("scale", 1, " TVNet scale [3]")
+flags.DEFINE_integer("warp", 1, " TVNet warp [1]")
 flags.DEFINE_integer("iteration", 50, " TVNet iteration [10]")
 flags.DEFINE_string("gpu", '0', " gpu to use [0]")
 FLAGS = flags.FLAGS
@@ -24,16 +24,16 @@ print 'TVNet Params:\n scale: %d\n warp: %d\n iteration: %d\nUsing gpu: %s' \
 # load image
 img1 = cv2.imread('frame/img1.png')
 img2 = cv2.imread('frame/img2.png')
+# print(img1[np.newaxis, ...].shape)
 h, w, c = img1.shape
 
 # model construct
 x1 = tf.placeholder(shape=[1, h, w, 3], dtype=tf.float32)
 x2 = tf.placeholder(shape=[1, h, w, 3], dtype=tf.float32)
 tvnet = TVNet()
-u1, u2, rho = tvnet.tvnet_flow(x1,x2,max_scales=scale,
+u1, u2, rho = tvnet.tvnet_flow(x1, x2, max_scales=scale,
                      warps=warp,
                      max_iterations=iteration)
-
 # init
 sess = tf.Session(config=tf.ConfigProto(gpu_options=tf.GPUOptions(allow_growth=True), allow_soft_placement=True))
 sess.run(tf.global_variables_initializer())
