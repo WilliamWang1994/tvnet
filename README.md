@@ -1,7 +1,4 @@
-# tvnet
-training  TVnet
 network code from TVnet
-
 
 add calculateEPE.py
 train.py
